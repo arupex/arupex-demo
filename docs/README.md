@@ -1,4 +1,4 @@
-#Anatomy of an Arupex Application
+# Anatomy of an Arupex Application
 
 [![npm version](https://badge.fury.io/js/arupex.svg)](https://badge.fury.io/js/arupex)
 [![dependencies](https://david-dm.org/arupex/areupex.svg)](http://github.com/arupex/arupex)
@@ -7,19 +7,20 @@
 ![lifetimeDownloadCount](https://img.shields.io/npm/dt/arupex.svg?maxAge=2592000)
 
 ### What is Arupex?
+
 Arupex is a Serverless/Server framework for NodeJS
 It allows you to build a serverless application for your needs, but also allows you to wrap that with a http server if need be
 
-##Goals
+## Goals
 - Making Testing easier on Developers
  - Making Mocking a thing of the past
  - Simplifying Workflows
  - Making Dependency Injection simple and elegant
 
 
-#Examples - [download example project](https://github.com/arupex/arupex.com/archive/master.zip)
+# Examples - [download example project](https://github.com/arupex/arupex-demo/archive/master.zip)
  
-###Environments
+### Environments
  - This is where you put configuration data for things like data services (connection strings)
  - For instances if you have a CurrencyDataService you might have the following configuration
    
@@ -33,11 +34,11 @@ Example:
     };
     
     
-[Learn More About Environments](./docs/Environments.md)
+[Learn More About Environments](./Environments.md)
 
 ----
 
-###Routes
+### Routes
 
 Routes allows you to have a http server associated with your serverless functions
  our route syntax allows you to include parameters in the route both {{required}} and {optional parameters}
@@ -47,10 +48,10 @@ Routes allows you to have a http server associated with your serverless function
         '/api/v1/ping?locale={{locale}}&time={optionalTime}' : 'FunctionName'
     };
 
-[Learn More About Routes](./docs/Routes.md)
+[Learn More About Routes](./Routes.md)
 
 
-###Functions - are essentially controllers help call underlying business code (Services)
+### Functions - are essentially controllers help call underlying business code (Services)
     
     // Note that currencyConversion is a Service and res is a container for responses, these are injected by name
     module.exports = function(currencyConversion, res){
@@ -61,9 +62,9 @@ Routes allows you to have a http server associated with your serverless function
         });
     };
 
-[Learn More About Functions](./docs/Functions.md)
+[Learn More About Functions](./Functions.md)
 
-###Hooks - are injectable to Policies/Services/DataServices
+### Hooks - are injectable to Policies/Services/DataServices
 
     //useful for abstracting event, or creating loggers, or other things you might need injected into DataService
     module.exports = function(event, context){
@@ -72,9 +73,9 @@ Routes allows you to have a http server associated with your serverless function
         };
     };
 
-[Learn More About Hooks](./docs/Hooks.md)
+[Learn More About Hooks](./Hooks.md)
 
-###Policies - are good for checking parameters / checking authentication / authorization
+### Policies - are good for checking parameters / checking authentication / authorization
     
     //works similarly to express middlware, however you can inject hooks/services
     module.exports = function(req, res, next, iamService, userHook){
@@ -86,9 +87,9 @@ Routes allows you to have a http server associated with your serverless function
         });
     };
 
-[Learn More About Policies](./docs/Policies.md)
+[Learn More About Policies](./Policies.md)
 
-###Services - are internal components that handle data manipulation and handeling business logic
+### Services - are internal components that handle data manipulation and handeling business logic
 
     //creates a service which takes in a CurrencyDataService and a UserDataService
     module.exports = function(CurrencyDataService, UserDataService){
@@ -102,11 +103,11 @@ Routes allows you to have a http server associated with your serverless function
         };
     };
     
-[Learn More About Services](./docs/Services.md)
+[Learn More About Services](./Services.md)
 
-###DataServices - are mockable services which call out to other external components
+### DataServices - are mockable services which call out to other external components
 
-#####Example 1:
+##### Example 1:
     module.exports = [
         { getLatestBase : 'GET latest?base={{base}}' },//you can force the output function name
         'latest?symbols={{symbols}}'//you can let clientBuilder determine the name of the function
@@ -122,7 +123,7 @@ Routes allows you to have a http server associated with your serverless function
         };
     
     };
-#####Example 2:
+##### Example 2:
     module.exports = {
         getCurrency : function (){
             return 'USD';
@@ -135,16 +136,17 @@ Routes allows you to have a http server associated with your serverless function
     //cannot be mocked
     module.exports.overrideable = false;
 
-[Learn More About DataServices](./docs/DataServices.md)
+[Learn More About DataServices](./DataServices.md)
 
-###Responses - are an abstraction for the underlying callback it be a callback to AWS lambda/Gateway or to NODE.js http socket
+### Responses - are an abstraction for the underlying callback it be a callback to AWS lambda/Gateway or to NODE.js http socket
 
 
-[Learn More About Responses](./docs/Responses.md)
+[Learn More About Responses](./Responses.md)
 
-###Workers - allow you to run tasks
+### Workers - allow you to run tasks
 
-#####Interval-Workers
+##### Interval-Workers
+
 Workers are great if you want a task to happen asynchronously in the background without user/client triggering
 if you wanted to create a 'cron' worker you would go about this similarly to
 
@@ -158,8 +160,13 @@ Example:
     };
     module.exports.interval = 60000;//every minute
 
-[Learn More About Workers](./docs/Workers.md)
+[Learn More About Workers](./Workers.md)
 
+# Mocks
 
-###Need More Help? Open an Issue [Here](https://github.com/arupex/arupex/issues/new) or @dirwin517
-### Want to improve this documentation? [Do a Pull Request](https://github.com/arupex/arupex.com)
+Arupex simplifies the mocking process by generating mocks for you based on a schema generated from your actual code!
+
+[Learn More About Mocks](./Mocking.md)
+
+### Need More Help? Open an Issue [Here](https://github.com/arupex/arupex/issues/new) or @dirwin517
+### Want to improve this documentation? [Do a Pull Request](https://github.com/arupex/arupex-demo)
