@@ -17,6 +17,13 @@ It allows you to build a serverless application for your needs, but also allows 
  - Simplifying Workflows
  - Making Dependency Injection simple and elegant
 
+# Injection Order - injection is aggregate so each lower is injecting all upper dependencies
+ - Hooks
+ - DataServices
+ - DataServiceUtils
+ - Service
+ - Policies
+ - Functions
 
 # Examples - [download example project](https://github.com/arupex/arupex-demo/archive/master.zip)
  
@@ -72,6 +79,13 @@ Routes allows you to have a http server associated with your serverless function
             getUserId : () => { return event.userId; }
         };
     };
+    
+A common use for hooks is to allow injection of external libraries
+    
+    //in a hook file called moment.js
+    module.exports = function(){
+        return require('moment');
+    }
 
 [Learn More About Hooks](./docs/Hooks.md)
 
